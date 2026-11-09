@@ -14,10 +14,27 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'branch_id',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isEmployee(): bool
+    {
+        return $this->role === 'employee';
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(\App\Models\Branch::class);
+    }
 }
